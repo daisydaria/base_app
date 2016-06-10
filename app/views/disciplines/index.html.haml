@@ -1,0 +1,28 @@
+%h1 Дисциплины
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th= Discipline.human_attribute_name(:title)
+      %th= Discipline.human_attribute_name(:tip)
+      -if is_operator?
+        %th Действия
+
+  %tbody
+    -@disciplines.each do |discipline|
+      %tr
+        %td= discipline.title 
+        %td= discipline.tip
+
+        -if is_operator?
+          %td
+            = link_to edit_discipline_path(discipline), class: "btn btn-warning btn-xs" do
+              =fa_icon "edit"
+              Редактировать
+            = link_to discipline_path(discipline), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+              =fa_icon "remove"
+              Удалить
+
+
+-if is_operator?
+  = link_to 'Новая дисцплина', new_discipline_path, "data-toggle" => "tooltip", :title => "Создать специальность", class: "btn btn-primary btn-xs"

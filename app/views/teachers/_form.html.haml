@@ -1,0 +1,56 @@
+= form_for(@teacher) do |f|
+  - if @teacher.errors.any?
+    = error_messages_for @teacher
+
+  .row
+    .form-group
+      = f.label :lname, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :lname
+
+  .row
+    .form-group
+      = f.label :fname, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :fname
+
+  .row
+    .form-group
+      = f.label :sname, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :sname
+
+  .row
+    .form-group
+      = f.label :birth, class: "col-sm-2"
+      .col-sm-10
+        = f.date_select :birth
+
+  .row
+    .form-group
+      = f.label :degree, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field  :degree
+
+
+  .row
+    .form-group
+      = f.label :rank, class: "col-sm-2"
+      .col-sm-10
+        = f.select  :rank, @positions.each {|p| [p, p]}
+
+  .row
+    .form-group
+      = f.label :post, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :post
+  .row
+    .form-group
+      = f.label :avatar, class: "col-sm-3"
+      .col-sm-4
+        = f.file_field :avatar, class: "form-control"
+        
+  .row
+    .col-sm-offset-2
+      .actions
+        = f.submit 'Сохранить'

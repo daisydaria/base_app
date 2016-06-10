@@ -1,0 +1,83 @@
+.row
+	.form-group
+		= label_tag :lname, "Фамилия", class: "col-sm-2"
+		.col-sm-10
+			= @teacher.lname
+
+.row
+	.form-group
+		= label_tag :fname, "Имя",  class: "col-sm-2"
+		.col-sm-10
+			= @teacher.fname
+
+.row
+	.form-group
+		= label_tag :sname, "Отчество",  class: "col-sm-2"
+		.col-sm-10
+			= @teacher.sname
+
+.row
+	.form-group
+		= label_tag :birth, "Дата рождения", class: "col-sm-2"
+		.col-sm-10
+			=@teacher.birth
+
+.row
+	.form-group
+		= label_tag :degree, "Степень", class: "col-sm-2"
+		.col-sm-10
+			= @teacher.degree
+
+
+.row
+	.form-group
+		= label_tag :rank,  "Звание", class: "col-sm-2"
+		.col-sm-10
+			= @teacher.rank
+
+.row
+	.form-group
+		= label_tag :post, "Должность", class: "col-sm-2"
+		.col-sm-10
+			= @teacher.post
+
+
+.row
+	.col-sm-2
+		%a{href:"#", id: "get-hours-link"}
+			Дисциплины
+
+.row.hours-list{style: "display: none"}
+	.form-group
+		%label{class: "col-sm-2"}
+			Дисциплины
+		.col-sm-10
+			-if is_operator?	
+				%form{id: "new_hour"}
+					%input#teacher-id{type: :hidden, value: "#{@teacher.id}"}
+					.col-sm-5
+						=select_tag :group, options_from_collection_for_select(Group.all, "id", "title"), class: "form-control"
+					.col-sm-5
+						=select_tag :discipline, options_from_collection_for_select(Discipline.all, "id", "title"), class: "form-control"
+					%button{class: "btn btn-success add-hours"}
+						Добавить
+			.hours{style: "margin-top: 10px"}
+				-@teacher.academic_hours.each do |h|
+					.hour
+						-if  is_operator?
+							%a{"data-link"=> delete_hour_teacher_path(@teacher, h), title:"Удалить", onclick: "deleteTeacherLinkHandler(this); return false", class: "delete-link"}
+								=fa_icon "remove"
+						=link_to h.group.title, h.group
+						\-
+						=link_to h.discipline.title, h.discipline
+				-if @teacher.academic_hours.empty?
+					Список пуст
+
+.row{style:"margin-top: 10px;"}
+	-if is_operator?
+		=link_to edit_teacher_path(@teacher), class: "btn btn-warning btn-xs" do
+			=fa_icon "edit"
+			Редактировать
+	= link_to 'Назад', teachers_path
+:javascript
+	teacherController()

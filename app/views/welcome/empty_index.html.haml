@@ -1,0 +1,21 @@
+.row
+  .col-md-4
+
+    = link_to(disciplines_path) do
+      .big-button
+        .title Поиск по дисциплинам
+        = fa_icon "th-list"
+
+    = link_to(documents_path) do
+      .big-button
+        .title Поиск по достижениям
+        = fa_icon "graduation-cap"
+  .col-md-4
+
+    = link_to(students_path) do
+      .big-button
+        .title Поиск по студентам
+        = fa_icon "users"
+
+
+

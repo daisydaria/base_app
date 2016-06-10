@@ -1,0 +1,21 @@
+.row
+  .form-group
+    = label_tag "Название", nil, class: "col-sm-3"
+    .col-sm-4
+      = @student_work.title
+
+.row
+  .form-group
+    = label_tag "Описание", nil, class: "col-sm-3"
+    .col-sm-4
+      = @student_work.description
+.row
+  .form-group
+    = label_tag "Файл", nil, class: "col-sm-3"
+    .col-sm-4
+      = link_to_if @student_work.attach, 'Скачать', @student_work.attach.url, target: "_blank"
+
+-if is_teacher? && @student_work.status == StudentWork::STATUS_TEMP
+  = link_to "Принять", accept_work_path(@student_work), class: "btn btn-warning btn-xs"
+    
+  = link_to "Отклонить", reject_work_path(@student_work), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" 

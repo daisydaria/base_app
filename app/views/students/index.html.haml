@@ -1,0 +1,28 @@
+%h1 Студенты
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th ФИО
+      %th Дата рождения
+      %th Номер зачетной книжки
+      -if is_operator?
+        %th Действия
+  %tbody
+    -@students.each do |student|
+      %tr
+        %td= link_to "#{student.l_n} #{student.f_n} #{student.s_n}", student
+        %td= student.birth 
+        %td= student.studbook
+        -if is_operator?
+          %td
+            = link_to edit_student_path(student), class: "btn btn-warning btn-xs" do
+              =fa_icon "edit"
+              Редактировать
+            = link_to student_path(student), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+              =fa_icon "remove"
+              Удалить
+
+
+-if is_operator?
+  = link_to 'Новый студент', new_student_path, class: "btn btn-primary btn-xs"

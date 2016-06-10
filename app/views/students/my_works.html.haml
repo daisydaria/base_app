@@ -1,0 +1,25 @@
+%h1 Мои работы
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Название
+      %th Предмет
+      %th Состояние
+      %th действия
+      
+  %tbody
+    -@works.each do |work|
+      %tr
+        %td=work.title
+        %td=work.discipline.title
+        %td=work.status
+        %td
+          = link_to edit_student_work_path(work), class: "btn btn-warning btn-xs" do
+            =fa_icon "edit"
+            Редактировать
+          = link_to student_work_path(work), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+            =fa_icon "remove"
+            Удалить
+
+= link_to 'Добавить', new_student_work_path, "data-toggle" => "tooltip", class: "btn btn-primary btn-xs"

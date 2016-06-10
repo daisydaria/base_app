@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 1
+  title: MyString
+  description: MyString
+  visited: false
+  attach: 
+  discipline_id: 1
+
+two:
+  student_id: 1
+  title: MyString
+  description: MyString
+  visited: false
+  attach: 
+  discipline_id: 1

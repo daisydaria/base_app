@@ -1,0 +1,84 @@
+ru:
+  app:
+    name: ПРОФАЙЛ
+    company:
+      short_name: МАМИ
+      department: 
+  helpers:
+    submit:
+      create: Сохранить
+      submit: Сохранить
+      update: Сохранить
+
+  views:
+    pagination:
+      first: ⇤
+      last: ⇥
+      previous: ←
+      next: →
+      truncate: …
+  activerecord:
+    models:
+      user: Пользователь
+    attributes:
+      user:
+        email: Пользовательское имя/электронная почта
+    errors:
+      models:
+        person:
+          attributes:
+            snils:
+              check_sum: имеет неправильную контрольную сумму
+
+    attributes:
+      group:
+        title: "Название"
+        course: "Курс"
+        semester: "Семестр"
+      specialty:
+        code: "Код"
+        gen: "Поколение"
+        title: "Название"
+        level: "Уровень"
+      plan:
+        specialty_id: "Специальность"
+        learn_form: "Форма обучения"
+        learn_period: "Срок обучения"
+      department:
+        num: "Номер"
+        title: "Название" 
+        superunit: "Вышестоящее подразделение"
+      discipline:
+        title: "Название"
+        tip: "Тип работы"
+      teacher:
+        lname: "Фамилия"
+        fname: "Имя" 
+        sname: "Отчество"
+        birth: "Дата рождения"
+        degree: "Степень"
+        rank: "Звание"
+        post: "Должность"
+      document:
+        text: "Содержимое"
+      user:
+        email: "Почта"
+        password: "Пароль"
+        password_confirmation: "Повторите пароль"
+        student: Студент
+      student:
+        l_n: "Фамилия"
+        f_n: "Имя"
+        s_n: "Отчество"
+        birth: "Дата рождения"
+        studbook: "Номер зачетной книжки"
+      student_work:
+        attach: Файл
+        title: Название
+        description: Описание
+      student_honor:
+        attach: Файл
+        title: Название
+        description: Описание
+        discipline: Дисциплина
+        student: Студент

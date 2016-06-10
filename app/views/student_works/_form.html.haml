@@ -1,0 +1,32 @@
+= form_for(@work, multipart: true) do |f|
+  - if @work.errors.any?
+    = error_messages_for @work
+
+  .row
+    .form-group
+      = f.label :title, class: "col-sm-3"
+      .col-sm-4
+        = f.text_field :title, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :description, class: "col-sm-3"
+      .col-sm-4
+        = f.text_area :description, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :discipline_id, "Дисциплина",class: "col-sm-3"
+      .col-sm-4
+        = f.select :discipline_id, @disciplines.collect {|t| [t.title, t.id]}, {}, class: "form-control"
+  
+  .row
+    .form-group
+      = f.label :attach, class: "col-sm-3"
+      .col-sm-4
+        = f.file_field :attach, class: "form-control"
+
+  .row
+    .col-sm-offset-3
+      .actions
+        = f.submit 'Сохранить'

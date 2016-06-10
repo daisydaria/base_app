@@ -1,0 +1,64 @@
+.row
+	.form-group
+		%label{class: "col-sm-2"}
+			Название
+		.col-sm-10		
+			=@group.title
+
+.row
+	.form-group
+		%label{class: "col-sm-2"}
+			Курс
+		.col-sm-10		
+			=@group.course
+
+.row
+	.form-group
+		%label{class: "col-sm-2"}
+			семестр
+		.col-sm-10		
+			=@group.semester
+
+.row
+	.col-sm-2
+		%a{href:"#", id: "get-students-link"}
+			Список студентов
+
+.row.students-list{style: "display: none"}
+	.form-group
+		%label{class: "col-sm-2"}
+			Список студентов
+		.col-sm-10
+			-if is_operator?	
+				%form.form-inline{style: "margin-bottom: 10px;"}
+					.form-group
+						%input{type: :hidden, value: "#{@group.id}", id: "group-id"}
+						%input.form-control.autocomplete{placeholder: "Поиск по ФИО", type: :search}
+					%button{class: "btn btn-success add-student", disabled: true}
+						Добавить
+					%a{href: '#student-registration-form', class: "fancybox btn btn-primary"}
+						Создать
+			.students
+				-@group.students.each do |student|
+					.student
+						-if is_operator?
+							%a{"data-link"=> delete_student_group_path(@group, student), title:"Удалить", onclick: "deleteLinkHandler(this); return false", class: "delete-link"}
+								=fa_icon "remove"
+						=link_to "#{student.l_n} #{student.f_n} #{student.s_n}", student
+				-if @group.students.empty?
+					Список пуст
+
+.row{style:"margin-top: 10px;"}
+	-if is_operator?
+		=link_to edit_group_path(@group), class: "btn btn-warning btn-xs" do
+			=fa_icon "edit"
+			Редактировать
+
+	= link_to 'Назад', groups_path
+
+.row
+	#student-registration-form{style: "display: none;min-width: 400px;"}
+		=render 'reg_student_form'
+
+:javascript
+	groupsController()

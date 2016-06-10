@@ -1,0 +1,12 @@
+%p#notice= notice
+
+
+%p
+  = @document.text
+%p
+  = image_tag(show_image_document_path(@document))
+
+
+= link_to 'Редактировать', edit_document_path(@document)
+= link_to 'Назад', document_path
+

@@ -1,0 +1,30 @@
+%h1 Кафедры
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th= Department.human_attribute_name(:title)
+      %th= Department.human_attribute_name(:num)
+      %th= Department.human_attribute_name(:superunit)
+      -if is_admin?
+        %th Действия
+
+  %tbody
+    -@departments.each do |department|
+      %tr
+        %td= link_to department.title, department_path(department)
+        %td= department.num
+        %td= department.superunit 
+        -if is_admin?
+          %td
+            = link_to department_path(department), class: "btn btn-warning btn-xs" do
+              =fa_icon "edit"
+              Редактировать
+            = link_to department_path(department), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+              =fa_icon "remove"
+              Удалить
+
+
+
+-if is_admin?
+  = link_to 'Новая кафедра', new_department_path, "data-toggle" => "tooltip", :title => "Создать специальность", class: "btn btn-primary btn-xs"

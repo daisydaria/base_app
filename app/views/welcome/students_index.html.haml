@@ -1,0 +1,39 @@
+.row
+	.col-md-8
+		%h1 Мои работы
+
+		%table.table.table-bordered
+			%thead
+				%tr
+					%th Название
+					%th Предмет
+					%th Состояние
+		      
+			%tbody
+				-@works.each do |work|
+					%tr
+						%td=work.title
+						%td=work.discipline.title
+						%td=work.status
+	.col-md-4
+		-if current_user.student.avatar_file_name
+			=image_tag(get_avatar_student_path(current_user.student, type: :thumb))
+		%p
+			%b ФИО: 
+			=current_user.student.full_name
+		%p
+			%b Дата рождения: 
+			=current_user.student.birth.strftime("%d.%m.%Y")
+		-group = current_user.student.group
+		-plan = group.plans.first if group
+		-specialty = plan.specialty if plan
+		%p
+			%b Специальность:
+			=specialty.title
+		%p
+			%b Курс:	
+			-if group
+				=group.course
+		%p
+			%b Номер зачетной книжки:	
+			=current_user.student.studbook

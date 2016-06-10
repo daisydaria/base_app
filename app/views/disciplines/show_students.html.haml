@@ -1,0 +1,13 @@
+%h1 Студенты
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Студент
+      %th Статус
+
+  %tbody
+    - @works.each do |work|
+      %tr
+        %td= link_to work.student.full_name, student_work_path(work)
+        %td= work.status

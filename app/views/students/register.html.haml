@@ -1,0 +1,38 @@
+= form_for(@student, multipart: true) do |f|
+  - if @student.errors.any?
+    = error_messages_for @student
+
+  .row
+    .form-group
+      = f.label :l_n, class: "col-sm-3"
+      .col-sm-4
+        = f.text_field :l_n, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :f_n, class: "col-sm-3"
+      .col-sm-4
+        = f.text_field :f_n, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :s_n, class: "col-sm-3"
+      .col-sm-4
+        = f.text_field :s_n, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :birth, class: "col-sm-3"
+      .col-sm-4
+        = f.date_select :birth, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :studbook, class: "col-sm-3"
+      .col-sm-4
+        = f.number_field :studbook, class: "form-control"
+        
+  .row
+    .col-sm-offset-3
+      .actions
+        = f.submit 'Сохранить'

@@ -1,0 +1,25 @@
+= form_for(@department) do |f|
+  - if @department.errors.any?
+    = error_messages_for @department
+
+  .row
+    .form-group
+      = f.label :num, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :num, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :title, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :title, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :superunit, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :superunit, class: "form-control"
+
+
+  .actions
+    = f.submit 'Сохранить'

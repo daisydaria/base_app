@@ -1,0 +1,10 @@
+%h1 Группы
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Группа
+  %tbody
+    - @groups.each do |group|
+      %tr
+        %td= link_to group.title, show_students_discipline_path(group)

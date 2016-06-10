@@ -1,0 +1,28 @@
+%p#notice= notice
+
+
+.row
+	.form-group
+		= label_tag :num, "Номер", class: "col-sm-2"
+		.col-sm-10
+			= @department.num
+
+.row
+	.form-group
+		= label_tag :title, "Название", class: "col-sm-2"
+		.col-sm-10
+			= @department.title
+
+.row
+	.form-group
+		=label_tag :superunit, "Вышестоящее подразделение", class: "col-sm-2"
+		.col-sm-10
+			= @department.superunit
+
+
+
+-if is_admin?
+	= link_to edit_department_path(@department), class: "btn btn-warning btn-xs" do
+		=fa_icon "edit"
+		Редактировать
+= link_to 'Назад', departments_path

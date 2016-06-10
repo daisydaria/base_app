@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Discipline:
+  = @duty.discipline
+%p
+  %b Student:
+  = @duty.student
+%p
+  %b Document:
+  = @duty.document
+%p
+  %b Name:
+  = @duty.name
+
+= link_to 'Edit', edit_duty_path(@duty)
+\|
+= link_to 'Back', duties_path

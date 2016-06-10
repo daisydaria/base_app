@@ -1,0 +1,57 @@
+.row
+	.form-group
+		=label_tag "Специальность", nil, class: "col-sm-2"
+		.col-sm-3
+			=@plan.specialty.title
+	
+.row
+	.form-group
+		=label_tag "Форма обучения", nil, class: "col-sm-2"
+		.col-sm-3
+			=@plan.learn_form
+
+.row
+	.form-group
+		=label_tag "Срок обучения", nil, class: "col-sm-2"
+		.col-sm-3
+			=@plan.learn_period
+.row
+	.form-group
+		=label_tag "Список дисциплин", nil, class: "col-sm-2"
+		.col-sm-10
+			=sanitize @plan.disciplines.map {|x| link_to x.title, x}.join(", "), tags: %w(a), attributes: %w(href)
+
+.row
+	.col-sm-2
+		%a{href:"#", id: "get-groups-link"}
+			Список групп
+
+.row.groups-list{style: "display: none"}
+	.form-group
+		%label{class: "col-sm-2"}
+			Список групп
+		.col-sm-10
+			-if is_operator?	
+				%form.form-inline{style: "margin-bottom: 10px;"}
+					.form-group
+						%input{type: :hidden, value: "#{@plan.id}", id: "plan-id"}
+						%input.form-control.autocomplete{placeholder: "Поиск по группе", type: :search}
+					%button{class: "btn btn-success add-group", disabled: true}
+						Добавить
+			.groups
+				-@plan.groups.each do |group|
+					.group
+						-if is_operator?
+							%a{"data-link"=> delete_group_plan_path(@plan, group), title:"Удалить", onclick: "deletePlanLinkHandler(this); return false", class: "delete-link"}
+								=fa_icon "remove"
+						=link_to group.title, group
+				-if @plan.groups.empty?
+					Список пуст
+.row{style:"margin-top: 10px;"}
+	-if is_operator?
+		=link_to edit_plan_path(@plan), class: "btn btn-warning btn-xs" do
+			=fa_icon "edit"
+			Редактировать
+	= link_to 'Назад', plans_path
+:javascript
+	planController();

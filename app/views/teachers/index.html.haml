@@ -1,0 +1,32 @@
+%h1 Преподаватели
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th ФИО
+      %th= Teacher.human_attribute_name(:birth)
+      %th= Teacher.human_attribute_name(:degree)
+      %th= Teacher.human_attribute_name(:rank)
+      %th= Teacher.human_attribute_name(:post)
+      -if is_operator?
+        %th Действия
+
+  %tbody
+    -@teachers.each do |teacher|
+      %tr
+        %td= link_to "#{teacher.lname} #{teacher.fname} #{teacher.sname}", teacher
+        %td= teacher.birth 
+        %td= teacher.degree
+        %td= teacher.rank
+        %td= teacher.post 
+        -if is_operator?
+          %td
+            = link_to edit_teacher_path(teacher), class: "btn btn-warning btn-xs" do
+              =fa_icon "edit"
+              Редактировать
+            = link_to teacher_path(teacher), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+              =fa_icon "remove"
+              Удалить
+
+-if is_operator?
+  = link_to 'Новый преподаватель', new_teacher_path, "data-toggle" => "tooltip", :title => "Создать специальность", class: "btn btn-primary btn-xs"

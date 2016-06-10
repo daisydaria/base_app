@@ -1,0 +1,18 @@
+= form_for(@document, multipart: true) do |f|
+  - if @document.errors.any?
+    = error_messages_for @document
+
+  .row
+    .col-md-12
+      .form-group
+        = f.label :text
+        = f.text_field :text
+  .row
+    .col-md-12
+      .form-group
+        = f.label :image
+        = f.file_field :image
+
+
+  .actions
+    = f.submit 'Сохранить'

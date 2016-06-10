@@ -1,0 +1,33 @@
+= form_for(Student.new, multipart: true) do |f|
+  .row
+    .form-group
+      = f.label :l_n
+      = f.text_field :l_n, class: "form-control", required: true
+
+  .row
+    .form-group
+      = f.label :f_n
+      = f.text_field :f_n, class: "form-control", required: true
+
+  .row
+    .form-group
+      = f.label :s_n
+      = f.text_field :s_n, class: "form-control", required: true
+
+  .row
+    .form-group
+      = f.label :birth
+      %div
+        = f.date_select :birth, class: "form-control", required: true
+
+  .row
+    .form-group
+      = f.label :studbook
+      = f.number_field :studbook, class: "form-control", required: true
+  .row
+    .actions
+      = f.submit 'Сохранить'
+
+.errors{style: "display: none"}
+  Невозможно создать студента
+  .list

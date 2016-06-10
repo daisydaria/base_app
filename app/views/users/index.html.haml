@@ -1,0 +1,26 @@
+%h1 Все пользователи
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Почта
+      -if is_admin?
+        %th Действия
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to user.email, user_path(user)
+        -if is_admin?  
+          %td
+            = link_to edit_user_path(user), class: "btn btn-warning btn-xs" do
+              =fa_icon "edit"
+              Редактировать
+            = link_to user_path(user), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+              =fa_icon "remove"
+              Удалить
+
+%br
+
+-if is_admin?
+  = link_to 'Новый пользователь', new_user_path

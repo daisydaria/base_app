@@ -1,0 +1,20 @@
+%p#notice= notice
+
+.row
+	.form-group
+		= label_tag :email, 'E-mail', class: "col-sm-2"
+		.col-sm-10
+			= @user.email
+
+.row
+	.form-group
+		= label_tag :role, "Роль", class: "col-sm-2"
+		.col-sm-10
+			= @user.role_users.first.role.full_name
+
+-if is_admin?
+	= link_to edit_user_path(@user), class: "btn btn-warning btn-xs" do
+		=fa_icon "edit"
+		Редактировать
+
+= link_to 'Назад', users_path

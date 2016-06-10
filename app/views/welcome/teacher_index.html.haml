@@ -1,0 +1,20 @@
+.row
+	.col-md-8
+		%h1 Дисциплины
+		.list-group
+			-current_user.teacher.academic_hours.each do |d|
+				.list-group-item
+					=link_to d.discipline do
+						= d.discipline.title
+	.col-md-4
+		-if current_user.teacher.avatar.path
+			=image_tag(get_avatar_teacher_path(current_user.teacher, type: :thumb))
+		%p
+			%b ФИО: 
+			=current_user.teacher.full_name
+		%p
+			%b Должность:
+			=current_user.teacher.post
+		%p 
+			%b Звание
+			=current_user.teacher.rank

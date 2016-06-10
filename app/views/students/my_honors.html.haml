@@ -1,0 +1,27 @@
+%h1 Мои достижения
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Название
+      %th Описание
+      %th Файл
+      %th Действия
+      
+  %tbody
+    -@honors.each do |honor|
+      %tr
+        %td=honor.title
+        %td=honor.description
+        %td
+          -if honor.attach
+            =link_to 'Скачать', honor.attach.url, target: "_blank"
+        %td
+          = link_to edit_student_honor_path(honor), class: "btn btn-warning btn-xs" do
+            =fa_icon "edit"
+            Редактировать
+          = link_to student_honor_path(honor), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+            =fa_icon "remove"
+            Удалить
+
+= link_to 'Добавить', new_student_honor_path, "data-toggle" => "tooltip", class: "btn btn-primary btn-xs"

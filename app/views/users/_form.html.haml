@@ -1,0 +1,42 @@
+= form_for @user do |f|
+  = error_messages_for @user
+  .row
+    .form-group
+      = f.label :email, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :email, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :password, class: "col-sm-2"
+      .col-sm-10
+        = f.password_field :password, class: "form-control"
+
+  .row
+    .form-group
+      = f.label :password_confirmation, class: "col-sm-2"
+      .col-sm-10
+        = f.password_field :password_confirmation, class: "form-control"
+
+  .row
+    .form-group
+      =label_tag :role_users, 'Роль', class: 'col-sm-2'
+      .col-sm-5
+        -unless @user.new_record?
+          =select_tag :role, options_from_collection_for_select(Role.all, :id, :full_name, selected: @user.role_users.first.role.id), class: "form-control"
+        -else
+          =select_tag :role, options_from_collection_for_select(Role.all, :id, :full_name), class: "form-control"
+
+  .row.not-show.students
+    .form-group
+      =label_tag :student, 'Студент', class: 'col-sm-2'
+      .col-sm-5
+        =select_tag :student, options_from_collection_for_select(Student.where("user_id is ? or user_id = ?", nil, @user.id), :id, :full_name, selected: (@user.student || Student.new).id), class: "form-control"
+  .row.not-show.teachers
+    .form-group
+      =label_tag :teacher, 'Преподаватель', class: 'col-sm-2'
+      .col-sm-5
+        =select_tag :teacher, options_from_collection_for_select(Teacher.where("user_id is ? or user_id = ?", nil, @user.id), :id, :full_name, selected: (@user.teacher || Teacher.new).id), class: "form-control"
+
+  .form-actions
+    = f.submit nil, class: 'btn btn-primary'

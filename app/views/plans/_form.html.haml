@@ -1,0 +1,30 @@
+= form_for(@plan) do |f|
+  - if @plan.errors.any?
+    = error_messages_for @plan
+
+  .row
+    .form-group
+      =f.label :specialty_id, class: "col-sm-2"
+      .col-sm-3
+        =f.select :specialty_id, Specialty.all.collect {|s| [s.title, s.id]}, {}, class:"form-control"
+  
+  .row
+    .form-group
+      =f.label :learn_form, class: "col-sm-2"
+      .col-sm-3
+        =f.select :learn_form, @learn_forms.each {|lm| [lm, lm]}, {}, class:"form-control"
+
+  .row
+    .form-group
+      =f.label :learn_period, class: "col-sm-2"
+      .col-sm-3
+        =f.number_field :learn_period, min: 1, class: "form-control"
+  .row
+    .form-group
+      =f.label "Список дисциплин", class: "col-sm-2"
+      .col-sm-10
+        =f.select :discipline_ids, Discipline.all.collect {|d| [d.title, d.id]}, {}, multiple: true, class: "multi-select"
+  .row
+    .col-sm-offset-2
+      .actions
+        = f.submit 'Сохранить'

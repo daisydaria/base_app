@@ -1,0 +1,37 @@
+%h1 Файл
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th= Document.human_attribute_name(:text)
+      %th
+      %th
+      %th
+      %th
+
+  %tbody
+    -@documents.each do |document|
+      %tr
+        %td= document.text
+
+        %td= document.image_file_name
+        %td
+          - if document.image.content_type == 'application/pdf'
+            = link_to(document.image_file_name, get_image_document_path(document))
+          - else
+            = link_to(show_image_document_path(document), target: :_new) do
+              = image_tag(get_image_document_path(document, type: :thumb))  
+ 
+        %td
+          = link_to document_path(document), class: "btn btn-warning btn-xs" do
+            =fa_icon "edit"
+            Редактировать
+
+        %td
+          = link_to document_path(document), :method => :delete, :data => { :confirm => 'Вы уверены?' }, class: "btn btn-danger btn-xs" do
+            =fa_icon "remove"
+            Удалить
+
+
+
+= link_to 'Новый файл', new_document_path, "data-toggle" => "tooltip", :title => "Создать специальность", class: "btn btn-primary btn-xs"

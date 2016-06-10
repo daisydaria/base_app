@@ -1,0 +1,32 @@
+= form_for(@specialty) do |f|
+  - if @specialty.errors.any?
+    = error_messages_for @specialty
+
+  .row
+    .form-group
+      = f.label :code, class: "col-sm-2"
+      .col-sm-10  
+        = f.text_field :code
+
+  .row
+    .form-group
+      = f.label :gen, class: "col-sm-2"
+      .col-sm-10
+        = f.text_field :gen
+
+  .row
+    .form-group
+      = f.label :title, class: "col-sm-2"
+      .col-sm-10  
+        = f.text_field :title
+
+  .row
+    .form-group
+      = f.label :level, class: "col-sm-2"  
+      .col-sm-10  
+        = f.text_field :level
+
+  .row
+    .col-sm-offset-2
+      .actions
+        = f.submit 'Сохранить'
