@@ -49,13 +49,18 @@ RoleUser.create(user: u2, role: r3)
 specialty = Specialty.create(code: "09.03.01",gen:"ФГОС3+", title:"Информатика и вычислительная техника", level: "Бакалавриат")
 group = Group.create(title: "121132",course:"4",semester:"8")
 plan = Plan.create(specialty: specialty, learn_form: "очная", learn_period: 48)
-d=Discipline.create(title: "Базы данных", tip: "Курсовая работа", plan: plan)
-d2=Discipline.create(title: "Проектирование и разработка корпоративных инф. систем", tip: "Курсовая работа", plan: plan)
-d3=Discipline.create(title: "Защита информации", tip: "Курсовая работа", plan: plan)
+d1=Discipline.create(title: "Методы хранения и обработки информации", tip: "Курсовая работа", plan: plan)
+d2=Discipline.create(title: "Базы данных", tip: "Курсовая работа", plan: plan)
+d3=Discipline.create(title: "Структуры и алгоритмы компьютерной обработки данных", tip: "Курсовая работа", plan: plan)
+d4=Discipline.create(title: "Вычислительные модели и алгоритмы", tip: "Курсовая работа", plan: plan)
+d5=Discipline.create(title: "Веб-технологии", tip: "Курсовая работа", plan: plan)
+d6=Discipline.create(title: "Производственная практика", tip: "Практика", plan: plan)
+d7=Discipline.create(title: "ВКР", tip: "ВКР", plan: plan)
 plan.groups << group
 
 
 studs_obj = []
+sda = nil
 users.each_with_index do |u, i|
   s1 = Student.create(l_n: u[0], f_n: u[1], s_n: u[2], birth: Date.new(1995, 3, 14) + rand(365).days, studbook: ((i + 1).to_s*6)[0..5], user: users_obj[i])
   group.students << s1
@@ -76,6 +81,7 @@ users.each_with_index do |u, i|
 <p>В свободное время уделяю внимание своим увлечениям, таким как латиноамериканские танцы, плаванье, декупаж, различные походы на выставки и фестивали города и многое другое.</p>    
 END
     s1.save
+    sda = s1
     RoleUser.create(user: users_obj[i], role: r1)
     RoleUser.create(user: users_obj[i], role: r2)
     RoleUser.create(user: users_obj[i], role: r4)
@@ -92,12 +98,32 @@ t=Teacher.create(lname: "Радыгин", fname: "Виктор", sname: "Юрь�
 AcademicHour.create(teacher: Teacher.first, discipline: Discipline.first, group: Group.first)
 Department.create(num: "номер", title: "кафедра", superunit: "вышестоящее подразделение")
 
-dt=Duty.create(name: "Пояснительная записка к курсовой работе", discipline_id: d.id)
+dt1=Duty.create(name: "Пояснительная записка к курсовой работе", discipline_id: d1.id)
 dt2=Duty.create(name: "Пояснительная записка к курсовой работе", discipline_id: d2.id)
 dt3=Duty.create(name: "Пояснительная записка к курсовой работе", discipline_id: d3.id)
+dt4=Duty.create(name: "Пояснительная записка к курсовой работе", discipline_id: d4.id)
+dt5=Duty.create(name: "Пояснительная записка к курсовой работе", discipline_id: d5.id)
+dt6=Duty.create(name: "Отчёт о практике", discipline_id: d6.id)
+dt7=Duty.create(name: "Пояснительная записка к ВКР", discipline_id: d7.id)
 
-t.disciplines << d
+dt1=StudentWork.create(student: sda, title: "Пояснительная записка к курсовой работе", description: "Тема «Вычисление мощности множества точек пересечения границы
+выпуклой оболочки со сторонами заданного стандартного
+прямоугольника. Определение суммы длин проекций полностью
+видимых ребер полиэдра, образующих с вертикалью угол не более 10∘»", discipline_id: d1.id, status: StudentWork::STATUS_SUCCESS)
+dt2=StudentWork.create(student: sda, title: "Пояснительная записка к курсовой работе", description: "Тема «Модификация эталонного проекта «Аэропорт»: добавление
+книги Жалоб и Предложений»", discipline_id: d2.id, status: StudentWork::STATUS_SUCCESS)
+dt3=StudentWork.create(student: sda, title: "Пояснительная записка к курсовой работе", description: "Тема «Графы. Нахождение максимального потока по транспортной сети. Алгоритм Эдмондса-Карпа»", discipline_id: d3.id, status: StudentWork::STATUS_SUCCESS)
+dt4=StudentWork.create(student: sda, title: "Пояснительная записка к курсовой работе", description: "Тема «Задача про Бонни и Клайда»", discipline_id: d4.id, status: StudentWork::STATUS_SUCCESS)
+dt5=StudentWork.create(student: sda, title: "Пояснительная записка к курсовой работе", description: "Тема «Добавление системы отзывов о фильмах»", discipline_id: d5.id, status: StudentWork::STATUS_SUCCESS)
+dt6=StudentWork.create(student: sda, title: "Отчёт о практике", description: "нет", discipline_id: d6.id, status: StudentWork::STATUS_ERROR)
+dt7=StudentWork.create(student: sda, title: "Пояснительная записка к ВКР", description: "нет", discipline_id: d7.id, status: StudentWork::STATUS_ERROR)
+
+t.disciplines << d1
 t.disciplines << d2
 t.disciplines << d3
+t.disciplines << d4
+t.disciplines << d5
+t.disciplines << d6
+t.disciplines << d7
 
 

@@ -55,23 +55,39 @@
     .tab-pane#study
       .panel.panel-primary.notop
         .panel-body
-          .row
-            .col-md-8
-              %h1 Мои работы
-
-              %table.table.table-bordered
-              %thead
-                %tr
-                  %th Название
-                  %th Предмет
-                  %th Состояние
-                  
-              %tbody
-                -@works.each do |work|
-                  %tr
-                    %td=work.title
-                    %td=work.discipline.title
-                    %td=work.status
+          %h3
+            Работы, предусмотренные учебным планом
+          - current_user.student.student_works.in_groups_of(4, false).each do |g|
+            .row
+              - g.each do |w|
+                - if w.discipline.is_done?
+                  .col-md-3
+                    .panel.panel-primary
+                      .panel-heading
+                        = w.discipline.title
+                      .panel-body
+                        %b
+                          Загруженные материалы:
+                        %br
+                        1.
+                        = link_to(?#) do
+                          = w.title
+                          %i= w.description
+                - else
+                  .col-md-3
+                    .panel.panel-danger
+                      .panel-heading
+                        = w.discipline.title
+                      .panel-body
+                        %b
+                          Необходимо загрузить:
+                        %br
+                        - w.discipline.duties.each_with_index do |d, i|
+                          = (i + 1).to_s + '.'
+                          = link_to(?#) do
+                            = d.name
+                            (редактировать)
+                          %br
     .tab-pane#person
       .panel.panel-primary.notop
         .panel-body
