@@ -182,6 +182,7 @@ ActiveRecord::Schema.define(version: 20160610040630) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.text     "about"
     t.integer  "group_id"
     t.integer  "user_id"
     t.datetime "created_at",          null: false
@@ -192,8 +193,24 @@ ActiveRecord::Schema.define(version: 20160610040630) do
   add_index "students", ["studbook"], name: "index_students_on_studbook", unique: true
   add_index "students", ["user_id"], name: "index_students_on_user_id"
 
-# Could not dump table "teachers" because of following NoMethodError
-#   undefined method `[]' for nil:NilClass
+  create_table "teachers", force: :cascade do |t|
+    t.string   "lname",               null: false
+    t.string   "fname",               null: false
+    t.string   "sname"
+    t.date     "birth",               null: false
+    t.string   "degree",              null: false
+    t.text     "rank",                null: false
+    t.text     "post",                null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "user_id"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+  add_index "teachers", ["user_id"], name: "index_teachers_on_user_id", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                                       null: false

@@ -1,61 +1,78 @@
-%ul.nav.nav-tabs#tabs
-  %li.active
-    = link_to("#bio", data: {toggle: :tab}) do
-      Личная информация
-  %li
-    = link_to("#study", data: {toggle: :tab}) do
-      Учебные достижения
-  %li
-    = link_to("#person", data: {toggle: :tab}) do
-      Персональные достижения
-.tab-content
-  .tab-pane.active#bio
-    .panel.panel-primary.notop
-      .panel-body
-        .row
-          .col-md-12
-            -if current_user.student.avatar_file_name
-              =image_tag(get_avatar_student_path(current_user.student, type: :thumb))
-            %p
-              %b ФИО: 
-              =current_user.student.full_name
-            %p
-              %b Дата рождения: 
-              =current_user.student.birth.strftime("%d.%m.%Y")
-            -group = current_user.student.group
-            -plan = group.plans.first if group
-            -specialty = plan.specialty if plan
-            %p
-              %b Специальность:
-              =specialty.title
-            %p
-              %b Курс:	
-              -if group
-                =group.course
-            %p
-              %b Номер зачетной книжки:	
-              =current_user.student.studbook  
-  .tab-pane#study
-    .panel.panel-primary.notop
-      .panel-body
-        .row
-          .col-md-8
-            %h1 Мои работы
+#tabs
+  %ul.nav.nav-tabs
+    %li.active
+      = link_to("#bio", data: {toggle: :tab}) do
+        Личная информация
+    %li
+      = link_to("#study", data: {toggle: :tab}) do
+        Учебные достижения
+    %li
+      = link_to("#person", data: {toggle: :tab}) do
+        Персональные достижения
+  .tab-content
+    .tab-pane.active#bio
+      .panel.panel-primary.notop
+        .panel-body
+          .row
+            .col-md-2
+              .thumbnail
+                -if current_user.student.avatar_file_name
+                  =image_tag(get_avatar_student_path(current_user.student, type: :medium))
+                .caption
+                  %p{style: "text-align: center"}
+                    %b  
+                      =current_user.student.full_name
+                  %p{style: "text-align: center"}
+                    Дата рождения: 
+                    %b= current_user.student.birth.strftime("%d.%m.%Y")
+            .col-md-8
+              %h3
+                Краткая автобиография
+              = raw(current_user.student.about)
+            .col-md-2
+              .thumbnail
+                .caption
+                  -group = current_user.student.group
+                  -plan = group.plans.first if group
+                  -specialty = plan.specialty if plan
+                  %p{style: "text-align: center"}
+                    Специальность:
+                    %b= specialty.title
+                  %p{style: "text-align: center"}
+                    Группа:	
+                    -if group
+                      %b=group.title
+                  %p{style: "text-align: center"}
+                    Курс:	
+                    -if group
+                      %b=group.course
+                    Семестр:	
+                    -if group
+                      %b=group.semester
+                  %p{style: "text-align: center"}
+                    Email:	
+                    %b=current_user.email
+    .tab-pane#study
+      .panel.panel-primary.notop
+        .panel-body
+          .row
+            .col-md-8
+              %h1 Мои работы
 
-            %table.table.table-bordered
-            %thead
-              %tr
-                %th Название
-                %th Предмет
-                %th Состояние
-                
-            %tbody
-              -@works.each do |work|
+              %table.table.table-bordered
+              %thead
                 %tr
-                  %td=work.title
-                  %td=work.discipline.title
-                  %td=work.status
-  .tab-pane#person
-    .panel.panel-primary.notop
-      .panel-body
+                  %th Название
+                  %th Предмет
+                  %th Состояние
+                  
+              %tbody
+                -@works.each do |work|
+                  %tr
+                    %td=work.title
+                    %td=work.discipline.title
+                    %td=work.status
+    .tab-pane#person
+      .panel.panel-primary.notop
+        .panel-body
 

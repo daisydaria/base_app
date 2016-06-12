@@ -59,4 +59,41 @@ $orange: #ffa726
     background-color: #95F9F7
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.8)  
 
+#tabs
+  .nav-tabs
+    li
+      a
+        font-family: 'Intro'
+        color: $navbar-inverse-bg
+        font-size: 100%
+        border-color: $navbar-inverse-bg $navbar-inverse-bg $navbar-inverse-bg $navbar-inverse-bg
+        border-style: solid
+        margin-right: 0px
+        border-radius: 0 10px 0 0 
+        background: lighten($body-bg, 5%)
+        &:hover
+          background: $body-bg
+    li.active
+      a
+        font-family: 'Intro'
+        color: $navbar-inverse-bg
+        font-size: 100%
+        border-color: $navbar-inverse-bg $navbar-inverse-bg lighten($body-bg, 5%) $navbar-inverse-bg
+        border-style: solid
+        margin-right: 0px
+        border-radius: 0 10px 0 0 
+        background: lighten($body-bg, 5%)
+  .tab-content
+    .tab-pane
+      &.active
+        .panel
+          .panel-body
+            background: lighten($body-bg, 5%)
+  .notop
+    border-top-style: none        
+    border-color: $navbar-inverse-bg
+.th-rose
+  background-color: #f9fbe7
+.th-green
+  background-color: #e0f2f1
 

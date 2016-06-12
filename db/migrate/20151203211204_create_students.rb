@@ -8,6 +8,7 @@ class CreateStudents < ActiveRecord::Migration
       t.integer :studbook, :null => false
       t.index :studbook, :unique => true
       t.attachment :avatar
+      t.text :about
 
       t.references :group, index: true
       t.references :user, index: true
