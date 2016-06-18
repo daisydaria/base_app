@@ -55,7 +55,7 @@ d3=Discipline.create(title: "Структуры и алгоритмы компь
 d4=Discipline.create(title: "Вычислительные модели и алгоритмы", tip: "Курсовая работа", plan: plan)
 d5=Discipline.create(title: "Веб-технологии", tip: "Курсовая работа", plan: plan)
 d6=Discipline.create(title: "Производственная практика", tip: "Практика", plan: plan)
-d7=Discipline.create(title: "ВКР", tip: "ВКР", plan: plan)
+d7=Discipline.create(title: "Выпускная квалификационная работа", tip: "ВКР", plan: plan)
 plan.groups << group
 
 

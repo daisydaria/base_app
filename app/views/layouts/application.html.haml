@@ -28,7 +28,7 @@
             =yield :error_messages
           -need_works
           -available_teacher_works
-          -if is_student? && @disciplines.count > 0
+          -if is_student? && @disciplines.count > 0 && controller_name != 'plans'
             .alert.alert-warning
               Необходимо загрузить работы по 
               %a{href: "#", onclick: "need_works()"}  

@@ -1,57 +1,83 @@
-.row
-	.form-group
-		=label_tag "Специальность", nil, class: "col-sm-2"
-		.col-sm-3
-			=@plan.specialty.title
-	
-.row
-	.form-group
-		=label_tag "Форма обучения", nil, class: "col-sm-2"
-		.col-sm-3
-			=@plan.learn_form
-
-.row
-	.form-group
-		=label_tag "Срок обучения", nil, class: "col-sm-2"
-		.col-sm-3
-			=@plan.learn_period
-.row
-	.form-group
-		=label_tag "Список дисциплин", nil, class: "col-sm-2"
-		.col-sm-10
-			=sanitize @plan.disciplines.map {|x| link_to x.title, x}.join(", "), tags: %w(a), attributes: %w(href)
-
-.row
-	.col-sm-2
-		%a{href:"#", id: "get-groups-link"}
-			Список групп
-
-.row.groups-list{style: "display: none"}
-	.form-group
-		%label{class: "col-sm-2"}
-			Список групп
-		.col-sm-10
-			-if is_operator?	
-				%form.form-inline{style: "margin-bottom: 10px;"}
-					.form-group
-						%input{type: :hidden, value: "#{@plan.id}", id: "plan-id"}
-						%input.form-control.autocomplete{placeholder: "Поиск по группе", type: :search}
-					%button{class: "btn btn-success add-group", disabled: true}
-						Добавить
-			.groups
-				-@plan.groups.each do |group|
-					.group
-						-if is_operator?
-							%a{"data-link"=> delete_group_plan_path(@plan, group), title:"Удалить", onclick: "deletePlanLinkHandler(this); return false", class: "delete-link"}
-								=fa_icon "remove"
-						=link_to group.title, group
-				-if @plan.groups.empty?
-					Список пуст
-.row{style:"margin-top: 10px;"}
-	-if is_operator?
-		=link_to edit_plan_path(@plan), class: "btn btn-warning btn-xs" do
-			=fa_icon "edit"
-			Редактировать
-	= link_to 'Назад', plans_path
-:javascript
-	planController();
+%h2
+  Учебный план №
+  = @plan.id
+.panel.panel-primary
+  .panel-body
+    .row
+      .col-md-2
+        .thumbnail
+          .caption
+            %p{style: "text-align: center"}
+              Специальность:
+              %br
+              %b
+                = @plan.specialty.code
+              %br
+                = @plan.specialty.title
+            %p{style: "text-align: center"}
+              Форма обучения:        
+              %b
+                = @plan.learn_form
+            %p{style: "text-align: center"}
+              Срок обучения:        
+              %b
+                =@plan.learn_period / 12 
+                года
+            %p{style: "text-align: center"}
+              Загружен из файла:        
+              %b
+                09.03.01-2012.xml
+            %p{style: "text-align: center"}
+              Дата обновления:        
+              %b
+                =l(Date.today() - 10.days)
+            %p{style: "text-align: center"}
+              = link_to(?#, class: 'label label-green') do
+                Загрузить заново 
+      .col-md-8
+        .row
+          .col-md-9
+            %h3
+              Дисциплины, по которым предусмотрены обязательные к загрузке материалы
+          .col-md-3
+            %h4 
+              .pull-right{style: "margin-top: 10px;"}
+                = link_to(?#, class: 'label label-purple') do
+                  Показать все дисциплины плана (61) 
+        .row  
+          .list-group
+            - @plan.disciplines.each_with_index do |d, i|
+              .list-group-item
+                = (i + 1).to_s + '.'
+                %b= d.title
+                %i= d.tip
+                .pull-right
+                  = link_to(?#, class: 'label label-yellow') do
+                    Не загружать 
+                  = link_to(?#, class: 'label label-green') do
+                    Редактировать
+                .clearfix
+      .col-md-2
+        .thumbnail
+          .caption
+            %p{style: "text-align: center"}
+              Группы
+            %p{style: "text-align: center"}
+              -@plan.groups.each do |group|
+                -if is_operator?
+                  %a{"data-link"=> delete_group_plan_path(@plan, group), title:"Удалить", onclick: "deletePlanLinkHandler(this); return false", class: "delete-link"}
+                    =fa_icon "remove"
+                =link_to group.title, group
+              -if @plan.groups.empty?
+                групп нет
+            %p{style: "text-align: center"}
+              %form{style: "margin-bottom: 10px;"}
+                .form-group
+                  %input{type: :hidden, value: "#{@plan.id}", id: "plan-id"}
+                  %input.form-control.autocomplete{placeholder: "Поиск по группе", type: :search}
+                  .pull-right
+                    %button{class: "label label-green add-group", disabled: true}
+                      Добавить
+                  .clearfix
+            :javascript
+              planController();
