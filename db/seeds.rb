@@ -61,6 +61,7 @@ plan.groups << group
 
 studs_obj = []
 sda = nil
+j = 0
 users.each_with_index do |u, i|
   s1 = Student.create(l_n: u[0], f_n: u[1], s_n: u[2], birth: Date.new(1995, 3, 14) + rand(365).days, studbook: ((i + 1).to_s*6)[0..5], user: users_obj[i])
   group.students << s1
@@ -85,6 +86,14 @@ END
     RoleUser.create(user: users_obj[i], role: r1)
     RoleUser.create(user: users_obj[i], role: r2)
     RoleUser.create(user: users_obj[i], role: r4)
+  elsif j < 5
+    s1.avatar = File.open("s#{j + 1}.jpg", 'r')
+    s1.save
+    j += 1
+  elsif j < 8
+    s1.avatar = File.open("u#{j - 4}.jpg", 'r')
+    s1.save
+    j += 1
   end
 end
 
